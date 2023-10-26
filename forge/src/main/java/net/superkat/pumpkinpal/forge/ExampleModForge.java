@@ -1,9 +1,9 @@
-package net.examplemod.forge;
+package net.superkat.pumpkinpal.forge;
 
 import dev.architectury.platform.forge.EventBuses;
-import net.examplemod.ExampleMod;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.superkat.pumpkinpal.ExampleMod;
 
 @Mod(ExampleMod.MOD_ID)
 public class ExampleModForge {

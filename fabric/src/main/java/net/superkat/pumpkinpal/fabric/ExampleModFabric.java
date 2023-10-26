@@ -1,7 +1,7 @@
-package net.examplemod.fabric;
+package net.superkat.pumpkinpal.fabric;
 
-import net.examplemod.ExampleMod;
 import net.fabricmc.api.ModInitializer;
+import net.superkat.pumpkinpal.ExampleMod;
 
 public class ExampleModFabric implements ModInitializer {
     @Override
