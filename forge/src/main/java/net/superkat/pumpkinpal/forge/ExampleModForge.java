@@ -43,7 +43,7 @@ public class ExampleModForge {
         @SubscribeEvent
         public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
             AttributeSupplier.Builder pumpkinpalAttributes = PathfinderMob.createMobAttributes()
-                    .add(Attributes.FOLLOW_RANGE, 16).add(Attributes.MAX_HEALTH, 15);
+                    .add(Attributes.FOLLOW_RANGE, 16).add(Attributes.MAX_HEALTH, 15).add(Attributes.MOVEMENT_SPEED, 0.3);
 
             event.put(PUMPKINPAL.get(), pumpkinpalAttributes.build());
         }

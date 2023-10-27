@@ -2,7 +2,13 @@ package net.superkat.pumpkinpal.entity.custom;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.superkat.pumpkinpal.entity.MoveTowardsPlayerGoal;
+import net.superkat.pumpkinpal.entity.MoveTowardsWardenGoal;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -36,6 +42,17 @@ public class PumpkinPalEntity extends PathfinderMob implements GeoEntity {
         } else {
             return PlayState.STOP;
         }
+    }
+
+    @Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new MoveTowardsWardenGoal(this, 1.1, 32));
+//        this.goalSelector.addGoal(2, new PanicGoal(this, 2));
+        this.goalSelector.addGoal(5, new MoveTowardsPlayerGoal(this, 0.7, 16));
+        this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
+        this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(15, new RandomStrollGoal(this, 1));
+//        super.registerGoals();
     }
 
     @Override
