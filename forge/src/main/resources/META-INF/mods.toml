@@ -33,3 +33,10 @@ mandatory = true
 versionRange = "[9.1.12,)"
 ordering = "AFTER"
 side = "BOTH"
+
+[[dependencies.pumpkinpal]]
+modId="geckolib"
+mandatory=true
+versionRange="[4.0.0,)"
+ordering="NONE"
+side="BOTH"
