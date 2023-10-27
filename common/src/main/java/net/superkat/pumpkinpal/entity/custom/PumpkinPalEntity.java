@@ -56,7 +56,9 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
 
     protected <E extends PumpkinPalEntity>PlayState idleAnimController(final AnimationState<E> event) {
         if(event.isMoving()) {
-            if(wardenNearby) {
+            @Nullable
+            LivingEntity closestWarden = this.level().getNearestEntity(Warden.class, TargetingConditions.DEFAULT, this, this.getX(), this.getY(), this.getZ(), this.getBoundingBox().inflate(32, 4.0, 32));
+            if(closestWarden != null) {
                 return event.setAndContinue(RUN_ANIM);
             }
             return event.setAndContinue(WALK_ANIM);
@@ -90,6 +92,8 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
             if(ticksUntilNextPotion-- > 0) {
                 return;
             }
+//            this.wardenNearby = closestWarden != null;
+
             if(ticksUntilNextPotion-- <= 0) {
                 ticksUntilNextPotion = this.random.nextInt(300, 1200);
                 @Nullable
@@ -100,21 +104,16 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
                 LivingEntity closestPlayer = this.level().getNearestPlayer(this, 16);
 
                 if(closestWarden == null && closestPlayer == null) {
-                    wardenNearby = false;
                     return;
                 } else if (closestWarden != null && closestPlayer != null) {
-                    wardenNearby = true;
                     target = this.random.nextBoolean() ? closestWarden : closestPlayer;
                 } else if (closestPlayer == null) {
                     //Requires a warden to be nearby to throw potions
-                    wardenNearby = true;
                     target = closestWarden;
                 }
                 if(target == null) {
-                    wardenNearby = false;
                     return;
                 }
-                wardenNearby = true;
                 Vec3 targetDeltaMovement = target.getDeltaMovement();
                 double shootX = target.getX() + targetDeltaMovement.x - this.getX();
                 double shootY = target.getEyeY() - (double) 1.1f - this.getY();
@@ -189,7 +188,7 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
 
     @Override
     public void playSound(SoundEvent soundEvent, float f, float g) {
-        super.playSound(soundEvent, f, g);
+        super.playSound(soundEvent, f * 1.2f, g);
         if (!this.isSilent()) {
             if(soundEvent == getAmbientSound()) {
                 super.playSound(SoundEvents.WARDEN_AMBIENT, f / 1.3f, g);
@@ -201,7 +200,7 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
                 possiblyPlaySculkSound(f, g);
             }
             if(soundEvent == getDeathSound()) {
-                super.playSound(SoundEvents.AXOLOTL_DEATH, f * 1.2f, g);
+                super.playSound(SoundEvents.AXOLOTL_DEATH, f * 1.7f, g);
                 possiblyPlaySculkSound(f, g);
             }
         }
