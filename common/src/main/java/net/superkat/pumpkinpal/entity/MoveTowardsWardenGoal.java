@@ -16,6 +16,7 @@ public class MoveTowardsWardenGoal extends MoveTowardsTargetGoal {
     private double wantedX;
     private double wantedY;
     private double wantedZ;
+    private boolean farAway;
     private final double speedModifier;
     private final float within;
     public MoveTowardsWardenGoal(PathfinderMob pathfinderMob, double speed, float radius) {
@@ -27,7 +28,7 @@ public class MoveTowardsWardenGoal extends MoveTowardsTargetGoal {
 
     @Override
     public boolean canUse() {
-        this.closestWarden = this.mob.level().getNearestEntity(Warden.class, TargetingConditions.DEFAULT, this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), this.mob.getBoundingBox().inflate(16.0, 4.0, 16.0));
+        this.closestWarden = this.mob.level().getNearestEntity(Warden.class, TargetingConditions.DEFAULT, this.mob, this.mob.getX(), this.mob.getY(), this.mob.getZ(), this.mob.getBoundingBox().inflate(within, 4.0, within));
 //        List<Warden> nearbyWardens = this.mob.level().getNearbyEntities(Warden.class, TargetingConditions.DEFAULT.range(32.0), this.mob, this.mob.getBoundingBox().inflate(32.0, 4, 32.0));
 //        if(nearbyWardens.isEmpty()) {
 //            return false;
@@ -38,13 +39,15 @@ public class MoveTowardsWardenGoal extends MoveTowardsTargetGoal {
         } else if (this.closestWarden.distanceToSqr(this.mob) > (double)(this.within * this.within)) {
             return false;
         } else {
-            Vec3 vec3 = DefaultRandomPos.getPosTowards(this.mob, 3, 2, this.closestWarden.position(), 0.05);
+            Vec3 vec3 = DefaultRandomPos.getPosTowards(this.mob, 5, 2, this.closestWarden.position(), 0.05);
             if (vec3 == null) {
                 return false;
             } else {
                 this.wantedX = vec3.x;
                 this.wantedY = vec3.y;
                 this.wantedZ = vec3.z;
+
+                this.farAway = this.mob.distanceTo(closestWarden) > 5;
                 return true;
             }
         }
@@ -62,6 +65,6 @@ public class MoveTowardsWardenGoal extends MoveTowardsTargetGoal {
 
     @Override
     public void start() {
-        this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, this.speedModifier);
+        this.mob.getNavigation().moveTo(this.wantedX, this.wantedY, this.wantedZ, farAway ? speedModifier : 0.6);
     }
 }

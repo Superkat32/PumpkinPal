@@ -1,14 +1,19 @@
 package net.superkat.pumpkinpal.entity.custom;
 
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.superkat.pumpkinpal.entity.MoveTowardsPlayerGoal;
 import net.superkat.pumpkinpal.entity.MoveTowardsWardenGoal;
+import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -46,7 +51,7 @@ public class PumpkinPalEntity extends PathfinderMob implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new MoveTowardsWardenGoal(this, 1.1, 32));
+        this.goalSelector.addGoal(1, new MoveTowardsWardenGoal(this, 1.5, 32));
 //        this.goalSelector.addGoal(2, new PanicGoal(this, 2));
         this.goalSelector.addGoal(5, new MoveTowardsPlayerGoal(this, 0.7, 16));
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 6.0f));
@@ -54,6 +59,29 @@ public class PumpkinPalEntity extends PathfinderMob implements GeoEntity {
         this.goalSelector.addGoal(15, new RandomStrollGoal(this, 1));
 //        super.registerGoals();
     }
+
+    @Override
+    protected void doPush(Entity entity) {
+        if(entity instanceof Warden) {
+            return;
+        }
+        super.doPush(entity);
+    }
+
+    @Nullable
+    @Override
+    protected SoundEvent getAmbientSound() {
+        return SoundEvents.AXOLOTL_IDLE_WATER;
+    }
+
+
+    //    @Override
+//    public void push(Entity entity) {
+//        if(entity instanceof Warden) {
+//            return;
+//        }
+//        super.push(entity);
+//    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
