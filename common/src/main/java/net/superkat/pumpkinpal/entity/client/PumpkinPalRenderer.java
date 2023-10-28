@@ -16,7 +16,7 @@ public class PumpkinPalRenderer extends GeoEntityRenderer<PumpkinPalEntity> {
 
     //    @Override
 //    public ResourceLocation getTextureLocation(PumpkinPalEntity entity) {
-//        return new ResourceLocation(ExampleMod.MOD_ID, "textures/entity/pumpkinpal.png");
+//        return new ResourceLocation(PumpkinPal.MOD_ID, "textures/entity/pumpkinpal.png");
 //    }
 //
 //    @Override

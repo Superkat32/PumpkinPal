@@ -1,11 +1,11 @@
 package net.superkat.pumpkinpal.fabric;
 
 import net.fabricmc.api.ModInitializer;
-import net.superkat.pumpkinpal.ExampleMod;
+import net.superkat.pumpkinpal.PumpkinPal;
 
-public class ExampleModFabric implements ModInitializer {
+public class PumpkinPalFabric implements ModInitializer {
     @Override
     public void onInitialize() {
-        ExampleMod.init();
+        PumpkinPal.init();
     }
 }

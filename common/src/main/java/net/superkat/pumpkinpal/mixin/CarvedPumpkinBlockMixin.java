@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.state.pattern.BlockInWorld;
 import net.minecraft.world.level.block.state.pattern.BlockPattern;
 import net.minecraft.world.level.block.state.pattern.BlockPatternBuilder;
 import net.minecraft.world.level.block.state.predicate.BlockStatePredicate;
-import net.superkat.pumpkinpal.ExampleExpectPlatform;
+import net.superkat.pumpkinpal.PumpkinPalPlatform;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -47,7 +47,7 @@ public class CarvedPumpkinBlockMixin {
     private void trySpawnPumpkinPal(Level level, BlockPos blockPos, CallbackInfo ci) {
         BlockPattern.BlockPatternMatch blockPatternMatch = this.setOrCreatePumpkinPalPattern().find(level, blockPos);
         if(blockPatternMatch != null) {
-            ExampleExpectPlatform.spawnPumpkinPal(level, blockPos, blockPatternMatch);
+            PumpkinPalPlatform.spawnPumpkinPal(level, blockPos, blockPatternMatch);
             CarvedPumpkinBlock.clearPatternBlocks(level, blockPatternMatch);
         }
     }

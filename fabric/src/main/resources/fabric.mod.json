@@ -16,7 +16,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.superkat.pumpkinpal.fabric.ExampleModFabric"
+      "net.superkat.pumpkinpal.fabric.PumpkinPalFabric"
     ]
   },
   "mixins": [

@@ -7,7 +7,7 @@ import net.minecraft.world.level.block.state.pattern.BlockPattern;
 
 import java.nio.file.Path;
 
-public class ExampleExpectPlatform {
+public class PumpkinPalPlatform {
     /**
      * We can use {@link Platform#getConfigFolder()} but this is just an example of {@link ExpectPlatform}.
      * <p>
@@ -15,7 +15,7 @@ public class ExampleExpectPlatform {
      * platform sub-package, with its class suffixed with {@code Impl}.
      * <p>
      * Example:
-     * Expect: net.superkat.pumpkinpal.ExampleExpectPlatform#getConfigDirectory()
+     * Expect: net.superkat.pumpkinpal.PumpkinPalPlatform#getConfigDirectory()
      * Actual Fabric: net.examplemod.fabric.ExampleExpectPlatformImpl#getConfigDirectory()
      * Actual Forge: net.examplemod.forge.ExampleExpectPlatformImpl#getConfigDirectory()
      * <p>

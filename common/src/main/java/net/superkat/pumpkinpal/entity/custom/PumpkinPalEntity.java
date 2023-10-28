@@ -43,7 +43,6 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
     private final AnimatableInstanceCache geoCache = GeckoLibUtil.createInstanceCache(this);
 
     private int ticksUntilNextPotion = -1;
-    private boolean wardenNearby = false;
 
     public PumpkinPalEntity(EntityType<? extends AbstractGolem> entityType, Level level) {
         super(entityType, level);
@@ -84,7 +83,6 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
     public void aiStep() {
         super.aiStep();
         if(!this.level().isClientSide) {
-            System.out.println(this.wardenNearby);
             //Sets the ticksUntilNextPotion as a Pumpkin Pal is spawned/loaded in
             if(ticksUntilNextPotion == -1) {
                 ticksUntilNextPotion = this.random.nextInt(300, 1200);
@@ -92,7 +90,6 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
             if(ticksUntilNextPotion-- > 0) {
                 return;
             }
-//            this.wardenNearby = closestWarden != null;
 
             if(ticksUntilNextPotion-- <= 0) {
                 ticksUntilNextPotion = this.random.nextInt(300, 1200);
@@ -211,16 +208,6 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
            super.playSound(SoundEvents.SCULK_CLICKING, f / 1.2f, g);
         }
     }
-
-
-
-    //    @Override
-//    public void push(Entity entity) {
-//        if(entity instanceof Warden) {
-//            return;
-//        }
-//        super.push(entity);
-//    }
 
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {

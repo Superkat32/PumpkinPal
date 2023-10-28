@@ -16,29 +16,29 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import net.superkat.pumpkinpal.ExampleMod;
+import net.superkat.pumpkinpal.PumpkinPal;
 import net.superkat.pumpkinpal.entity.client.PumpkinPalRenderer;
 import net.superkat.pumpkinpal.entity.custom.PumpkinPalEntity;
 
-@Mod(ExampleMod.MOD_ID)
-public class ExampleModForge {
+@Mod(PumpkinPal.MOD_ID)
+public class PumpkinPalForge {
 
-    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, ExampleMod.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, PumpkinPal.MOD_ID);
 
     public static final RegistryObject<EntityType<PumpkinPalEntity>> PUMPKINPAL = ENTITY_TYPES.register("pumpkinpal",
             () -> EntityType.Builder.of(PumpkinPalEntity::new, MobCategory.CREATURE).sized(0.75f, 0.75f).build("pumpkinpal"));
 
-    public ExampleModForge() {
+    public PumpkinPalForge() {
         // Submit our event bus to let architectury register our content on the right time
-        EventBuses.registerModEventBus(ExampleMod.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
+        EventBuses.registerModEventBus(PumpkinPal.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         ENTITY_TYPES.register(bus);
 
-        ExampleMod.init();
+        PumpkinPal.init();
     }
 
-    @Mod.EventBusSubscriber(modid = ExampleMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+    @Mod.EventBusSubscriber(modid = PumpkinPal.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegisterAttributes {
         @SubscribeEvent
         public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
@@ -49,7 +49,7 @@ public class ExampleModForge {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = ExampleMod.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(modid = PumpkinPal.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RegisterRenderer {
         @SubscribeEvent
         public static void registerRenderer(final EntityRenderersEvent.RegisterRenderers event) {

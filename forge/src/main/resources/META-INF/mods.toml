@@ -11,7 +11,7 @@ authors = "Superkat32"
 description = '''
 Made for SpookyJam 2023!
 '''
-#logoFile = ""
+logoFile = "icon"
 
 [[dependencies.pumpkinpal]]
 modId = "forge"
