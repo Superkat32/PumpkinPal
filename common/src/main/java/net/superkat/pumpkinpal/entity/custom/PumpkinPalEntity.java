@@ -6,6 +6,9 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
@@ -77,6 +80,13 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
         this.goalSelector.addGoal(7, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(15, new RandomStrollGoal(this, 1));
 //        super.registerGoals();
+    }
+
+    public static AttributeSupplier.Builder pumpkinPalAttributes() {
+        return PathfinderMob.createMobAttributes()
+                .add(Attributes.FOLLOW_RANGE, 16)
+                .add(Attributes.MAX_HEALTH, 15)
+                .add(Attributes.MOVEMENT_SPEED, 0.3);
     }
 
     @Override

@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "net.superkat.pumpkinpal.fabric.PumpkinPalFabric"
+    ],
+    "client": [
+      "net.superkat.pumpkinpal.fabric.PumpkinPalFabricClient"
     ]
   },
   "mixins": [

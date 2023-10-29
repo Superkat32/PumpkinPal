@@ -3,9 +3,7 @@ package net.superkat.pumpkinpal.forge;
 import dev.architectury.platform.forge.EventBuses;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -42,8 +40,7 @@ public class PumpkinPalForge {
     public static class RegisterAttributes {
         @SubscribeEvent
         public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
-            AttributeSupplier.Builder pumpkinpalAttributes = PathfinderMob.createMobAttributes()
-                    .add(Attributes.FOLLOW_RANGE, 16).add(Attributes.MAX_HEALTH, 15).add(Attributes.MOVEMENT_SPEED, 0.3);
+            AttributeSupplier.Builder pumpkinpalAttributes = PumpkinPalEntity.pumpkinPalAttributes();
 
             event.put(PUMPKINPAL.get(), pumpkinpalAttributes.build());
         }
