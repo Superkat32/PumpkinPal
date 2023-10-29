@@ -2,8 +2,6 @@ package net.superkat.pumpkinpal;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.platform.Platform;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.block.state.pattern.BlockPattern;
 
 import java.nio.file.Path;
 
@@ -27,8 +25,8 @@ public class PumpkinPalPlatform {
         throw new AssertionError();
     }
 
-    @ExpectPlatform
-    public static void spawnPumpkinPal(Object level, BlockPos blockPos, BlockPattern.BlockPatternMatch blockPatternMatch) {
-        throw new AssertionError();
-    }
+//    @ExpectPlatform
+//    public static void spawnPumpkinPal(Object level, BlockPos blockPos, BlockPattern.BlockPatternMatch blockPatternMatch) {
+//        throw new AssertionError();
+//    }
 }
