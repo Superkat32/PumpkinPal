@@ -25,6 +25,7 @@ configurations {
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentForge.extendsFrom common
+    version = rootProject.mod_version + "-forge"
 }
 
 dependencies {

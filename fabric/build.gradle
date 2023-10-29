@@ -17,6 +17,7 @@ configurations {
     compileClasspath.extendsFrom common
     runtimeClasspath.extendsFrom common
     developmentFabric.extendsFrom common
+    version = rootProject.mod_version + "-fabric"
 }
 
 dependencies {
