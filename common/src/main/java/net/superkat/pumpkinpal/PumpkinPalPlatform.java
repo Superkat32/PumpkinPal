@@ -24,9 +24,4 @@ public class PumpkinPalPlatform {
         // Just throw an error, the content should get replaced at runtime.
         throw new AssertionError();
     }
-
-//    @ExpectPlatform
-//    public static void spawnPumpkinPal(Object level, BlockPos blockPos, BlockPattern.BlockPatternMatch blockPatternMatch) {
-//        throw new AssertionError();
-//    }
 }
