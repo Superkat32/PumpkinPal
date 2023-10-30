@@ -1,6 +1,6 @@
 package net.superkat.pumpkinpal.mixin;
 
-import net.minecraft.client.Minecraft;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +22,8 @@ public abstract class PlayerMixin extends LivingEntity {
     }
     @Shadow public int experienceLevel;
 
+    @Shadow protected abstract void addParticlesAroundSelf(ParticleOptions particleOptions);
+
     @Inject(method = "tick", at = @At("TAIL"))
     public void checkForXpGainEffect(CallbackInfo ci) {
         if(this.hasEffect(PumpkinPal.XP_GAIN.get())) {
@@ -39,10 +41,10 @@ public abstract class PlayerMixin extends LivingEntity {
             }
         } else {
             for(int amount = 3; amount >= 0; amount--) {
-                Minecraft.getInstance().particleEngine.createParticle(ParticleTypes.TOTEM_OF_UNDYING, this.getX(), this.getEyeY(), this.getZ(), getRandomDouble(), getRandomDouble() / 2, getRandomDouble());
+                this.level().addParticle(ParticleTypes.TOTEM_OF_UNDYING, this.getX(), this.getEyeY(), this.getZ(), getRandomDouble(), getRandomDouble() / 2, getRandomDouble());
             }
             if(this.random.nextInt(1, 15) == 1) {
-                Minecraft.getInstance().particleEngine.createParticle(ParticleTypes.SCULK_SOUL, this.getX(), this.getY(), this.getZ(), 0.001, 0.2, 0.001);
+                this.level().addParticle(ParticleTypes.SCULK_SOUL, this.getX(), this.getY(), this.getZ(), 0.001, 0.2, 0.001);
             }
         }
     }
