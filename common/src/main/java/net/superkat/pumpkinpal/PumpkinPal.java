@@ -21,6 +21,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Rarity;
 import net.superkat.pumpkinpal.entity.client.PumpkinPalRenderer;
 import net.superkat.pumpkinpal.entity.custom.PumpkinPalEntity;
 
@@ -47,7 +48,7 @@ public class PumpkinPal {
     public static final RegistrySupplier<Item> SCULK_PUMPKIN_PIE = ITEMS.register("sculk_pumpkin_pie", () -> {
         FoodProperties.Builder fpBulider = new FoodProperties.Builder().nutrition(8).saturationMod(0.3f).alwaysEat();
         FoodPropertiesHooks.effect(fpBulider, () -> new MobEffectInstance(XP_GAIN.get(), 20, 2), 1);
-        return new Item(new Item.Properties().food(fpBulider.build()).arch$tab(CreativeModeTabs.FOOD_AND_DRINKS));
+        return new Item(new Item.Properties().rarity(Rarity.UNCOMMON).food(fpBulider.build()).arch$tab(CreativeModeTabs.FOOD_AND_DRINKS));
     });
 
 
