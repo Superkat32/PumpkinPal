@@ -3,6 +3,8 @@ package net.superkat.pumpkinpal.entity.custom;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,9 +21,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionUtils;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.superkat.pumpkinpal.entity.MoveTowardsPlayerGoal;
@@ -37,6 +37,7 @@ import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
 
@@ -127,9 +128,8 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
                 double shootZ = target.getZ() + targetDeltaMovement.z - this.getZ();
                 double h = Math.sqrt(shootX * shootX + shootZ * shootZ);
 
-                Potion potion = decidePotion();
                 ThrownPotion thrownPotion = new ThrownPotion(this.level(), this);
-                thrownPotion.setItem(PotionUtils.setPotion(new ItemStack(Items.PUMPKIN_PIE), potion));
+                thrownPotion.setItem(PotionUtils.setCustomEffects(new ItemStack(Items.PUMPKIN_PIE), Collections.singleton(possibleEffects())));
                 thrownPotion.setXRot(thrownPotion.getXRot() + 20.0f);
                 thrownPotion.shoot(shootX, shootY + h * 0.2 + 3, shootZ, 0.75f, 8.0f);
                 this.level().addFreshEntity(thrownPotion);
@@ -137,34 +137,28 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
         }
     }
 
-    public Potion decidePotion() {
-        //Probably could be better but I'm on a time limit as of now
-        ArrayList<Potion> possiblePotions = new ArrayList<>();
-        possiblePotions.add(Potions.HEALING);
-        possiblePotions.add(Potions.STRONG_HEALING);
-        possiblePotions.add(Potions.HARMING);
-        possiblePotions.add(Potions.STRENGTH);
-        possiblePotions.add(Potions.WEAKNESS);
-        possiblePotions.add(Potions.LEAPING);
-        possiblePotions.add(Potions.STRONG_LEAPING);
-        possiblePotions.add(Potions.SWIFTNESS);
-        possiblePotions.add(Potions.STRONG_SWIFTNESS);
-        possiblePotions.add(Potions.SLOWNESS);
-        possiblePotions.add(Potions.SLOW_FALLING);
-//        possiblePotions.add(Potions.INVISIBILITY);
+    public MobEffectInstance possibleEffects() {
+        ArrayList<MobEffectInstance> effects = new ArrayList<>();
 
-        Potion returnPotion = possiblePotions.get(this.random.nextInt(possiblePotions.size()));
+        //MobEffects.<effect>, <duration>, <ambient???(false by default)>, <showParticles>
+        effects.add(new MobEffectInstance(MobEffects.HEAL, 1)); //Instant health
+        effects.add(new MobEffectInstance(MobEffects.HEAL, 1, 2)); //Ultra instant health
+        effects.add(new MobEffectInstance(MobEffects.HEALTH_BOOST, 280, 1)); //Regen
+        effects.add(new MobEffectInstance(MobEffects.HARM, 1)); //Instant harm
+        effects.add(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 280)); //Speed
+        effects.add(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 160, 3)); //Ultra speed
+        effects.add(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 160)); //Slowness
+        effects.add(new MobEffectInstance(MobEffects.JUMP, 160, 2)); //Jump boost
+        effects.add(new MobEffectInstance(MobEffects.SLOW_FALLING, 280, 1)); //Slow falling
+        effects.add(new MobEffectInstance(MobEffects.GLOWING, 600, 1)); //Glowing
+        effects.add(new MobEffectInstance(MobEffects.INVISIBILITY, 300, 1, false, true)); //Invis (VERY SCARY ON WARDEN)
+        effects.add(new MobEffectInstance(MobEffects.BLINDNESS, 120, 1)); //Blindness
+        effects.add(new MobEffectInstance(MobEffects.NIGHT_VISION, 400, 1)); //Night vision
+        effects.add(new MobEffectInstance(MobEffects.ABSORPTION, 480, 3)); //Golden hearts thing
 
-//        if(returnPotion == Potions.INVISIBILITY) {
-//            if(this.random.nextBoolean()) {
-//                MobEffectInstance glowing = new MobEffectInstance(MobEffects.GLOWING, 300, 0);
-//                returnPotion = new Potion("glowing", glowing);
-//            } else {
-//                MobEffectInstance invis = new MobEffectInstance(MobEffects.GLOWING, 100, 0);
-//                returnPotion = new Potion("invisibility", invis);
-//            }
-//        }
-        return returnPotion;
+        MobEffectInstance returnEffect = effects.get(this.random.nextInt(effects.size()));
+
+        return returnEffect;
     }
 
     @Override
