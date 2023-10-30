@@ -18,12 +18,11 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.animal.AbstractGolem;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.ThrownPotion;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import net.superkat.pumpkinpal.PumpkinPal;
 import net.superkat.pumpkinpal.entity.MoveTowardsPlayerGoal;
 import net.superkat.pumpkinpal.entity.MoveTowardsWardenGoal;
 import org.jetbrains.annotations.Nullable;
@@ -128,11 +127,11 @@ public class PumpkinPalEntity extends AbstractGolem implements GeoEntity {
                 double shootZ = target.getZ() + targetDeltaMovement.z - this.getZ();
                 double h = Math.sqrt(shootX * shootX + shootZ * shootZ);
 
-                ThrownPotion thrownPotion = new ThrownPotion(this.level(), this);
-                thrownPotion.setItem(PotionUtils.setCustomEffects(new ItemStack(Items.PUMPKIN_PIE), Collections.singleton(possibleEffects())));
-                thrownPotion.setXRot(thrownPotion.getXRot() + 20.0f);
-                thrownPotion.shoot(shootX, shootY + h * 0.2 + 3, shootZ, 0.75f, 8.0f);
-                this.level().addFreshEntity(thrownPotion);
+                ThrownPie thrownPie = new ThrownPie(this.level(), this);
+                thrownPie.setItem(PotionUtils.setCustomEffects(new ItemStack(PumpkinPal.SCULK_PUMPKIN_PIE.get()), Collections.singleton(possibleEffects())));
+                thrownPie.setXRot(thrownPie.getXRot() + 20.0f);
+                thrownPie.shoot(shootX, shootY + h * 0.2 + 3, shootZ, 0.75f, 8.0f);
+                this.level().addFreshEntity(thrownPie);
             }
         }
     }
